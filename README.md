@@ -14,7 +14,7 @@
     4. Only playRound function prints on the console. All other functions return a      value.
     5. Write game() function which calls the playRound function 5 times and reports a winner at the end of the game. 
         5.1 Use a for(){} loops to play the 5 rounds.
-        5.2 Report the winner via the console.log()
+        5.2 Report the winner via the console.log() 
 
 
     

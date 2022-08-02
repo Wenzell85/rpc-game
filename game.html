@@ -6,20 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
 </head>
-<body>
-
-    //PLAN 
-
-    /*
-
-    Step 1. Pseudo 
-
-    
-    
-    */
-
-
+<body>   
     <script>
+
+        //get input from the player
+
+        const playerSelection = prompt("Make your selection [Rock/Paper/Scissors]: ","").toLowerCase();       
+
+
+        //Write computer selection function and assign it to a variable (input from PC);
+
+        function getComputerChoice(){
+            let choice = "rock,paper,scissors";
+            choice = choice.split(',')[Math.floor((Math.random()*3))];                       
+            return choice;            
+        }
+        const computerSelection = getComputerChoice();
+
+        //Write a playRound function for executing a single round of the game. 
+
+       
+
+        function playRound(playerSelection, computerSelection){            
+            
+            if(playerSelection === computerSelection){            
+                return "Its a tie";
+            }else if(playerSelection === "rock" && computerSelection === "paper"){                
+                return "You lost! Paper covers Rock";
+            }else if(playerSelection === "rock" && computerSelection === "scissors"){                
+                return "You won! Rock crushes Scissors";
+            }else if(playerSelection === "paper" && computerSelection === "rock"){
+                return "You won! Paper covers Rock";                
+            }else if(playerSelection === "paper" && computerSelection === "scissors"){
+                return "You lost! Scissors cut Paper";                
+            }else if(playerSelection === "scissors" && computerSelection === "paper"){
+                return "You won! Scissors cut Paper";                
+            }else if(playerSelection === "scissors" && computerSelection === "rock"){
+                return "You lost! Rock crushes Scissors";            
+            }else{
+                return 'Invalid entry';
+            }
+
+        }
+    
+
+    // write the game function 
+
+    function game(){        
+     
+        for(i = 1; i <= 5; i++){
+            computerSelection
+            playerSelection
+            console.log(playRound(playerSelection, computerSelection));
+        }
+    }
+
+    game();
+
+        
+
+        
 
     </script>
     
