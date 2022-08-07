@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            background-color: lightgreen;
+        }
+
+        .select-buttons {
+            display: flex;
+            justify-content: space-between;
+            border: 2px solid green;
+            border-radius: 5px;
+            padding: 30px;
+        }
+
+        .choice {
+            width: 150px;
+            height: 150px;
+            font-size: large;
+            font-weight: bolder;
+            border-radius: 50%;
+        }
+
+        .choice:hover {
+            border: 10px solid green;
+        }
+
+        .mid-container {
+            display: flex;
+            justify-content: space-between; 
+            padding: 30px 0;           
+        }
+
+        .score {
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            border: 2px solid green;
+            border-radius: 5px;
+            width: 300px;
+            height: 225px;
+        }
+
+        .title, .report {
+            font-weight: bolder;
+            font-size: x-large;
+        }
+
+        .points{
+            font-weight: bolder;
+            font-size: 5rem; 
+        }
+
+        .message {
+            font-weight: bolder;
+            font-size: 2.5rem;
+        }
+
+        .final-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid green;
+            border-radius: 5px;
+            width: 650px;
+            height: 225px;
+        }
+
+        .bot-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .final-score, .score, .select-buttons {
+            background-color: azure;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;        
+            width: 180px;
+            height:120px;
+        }
+
+        .icon{
+            font-size: 8rem;
+        }
+    </style>
+
+    <title>Game</title>
+</head>
+<body> 
+    
+    <div class="logo">
+        <div class="icon">
+            &#128018;
+        </div>
+    </div>
+
+
+    <div class="select-buttons">
+        <button class="choice">ROCK</button>
+        <button class="choice">PAPER</button>
+        <button class="choice">SCISSORS</button>        
+    </div>
+
+    <div class="mid-container">
+
+        <div class="score">
+            <div class="title">PLAYER</div>
+            <div class="points player-points" ></div>
+        </div>
+        <div class="final-score">
+            <div class="message"></div>
+        </div>
+        <div class="score">
+            <div class="title">COMPUTER</div>
+            <div class="points pc-points"></div>
+        </div>
+
+    </div>
+
+    <div class="bot-container">
+        <div class="report"></div>
+    </div>
+
+
+
+
+    <script> 
+
+        let pcScore = 0;
+        let playerScore = 0; 
+        let counter = 0;
+    
+        //declare DOM object variables and add event listener to buttons
+        const buttons = document.querySelectorAll('.choice');
+        buttons.forEach(butt => butt.addEventListener('click', playerChoice ));  
+        
+        const playerPoints = document.querySelector('.player-points');
+        const pcPoints = document.querySelector('.pc-points');
+        const roundReport = document.querySelector('.report');
+        const finalMessage = document.querySelector('.message');
+
+
+        //Write computer selection function and assign it to a variable (input from PC);
+
+        function getComputerChoice(){
+            let choice = "rock,paper,scissors";
+            choice = choice.split(',')[Math.floor((Math.random()*3))];                       
+            return choice;            
+        }
+        
+
+        //Write a playRound function for executing a single round of the game.        
+
+        function playRound(playerSelection, computerSelection){             
+              
+            
+            if(playerSelection === computerSelection){            
+                return "Its a tie";
+            }else if(playerSelection === "rock" && computerSelection === "paper"){                
+                return "You lost! Paper covers Rock";
+            }else if(playerSelection === "rock" && computerSelection === "scissors"){                
+                return "You won! Rock crushes Scissors";
+            }else if(playerSelection === "paper" && computerSelection === "rock"){
+                return "You won! Paper covers Rock";                
+            }else if(playerSelection === "paper" && computerSelection === "scissors"){
+                return "You lost! Scissors cut Paper";                
+            }else if(playerSelection === "scissors" && computerSelection === "paper"){
+                return "You won! Scissors cut Paper";                
+            }else if(playerSelection === "scissors" && computerSelection === "rock"){
+                return "You lost! Rock crushes Scissors";            
+            }else{
+                return 'Invalid entry';
+            }
+
+        }
+
+        function playerChoice(e){
+
+            const playerSelection = this.innerText.toLowerCase();
+            const computerSelection = getComputerChoice(); 
+
+            let gameRound = playRound(playerSelection, computerSelection);          
+            
+
+            if(gameRound.startsWith("You won")){
+                playerScore++;
+            }else if(gameRound.startsWith("You lost")){
+                pcScore++;
+            }
+
+            playerPoints.innerText = playerScore;
+            pcPoints.innerText = pcScore;
+            roundReport.innerText = gameRound;
+
+            counter++;
+
+            if(counter === 5 && playerScore > pcScore){
+                finalMessage.innerHTML = "PLAYER WINS &#128523";
+            
+            }else if(counter === 5 && playerScore < pcScore){
+                finalMessage.innerHTML = "PC WINS &#128531;";
+                
+            }else if(counter > 5){
+                document.location.reload(); //refresh page after 5 rounds
+            }
+
+            
+
+        }
+
+
+
+    
+
+
+
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+            
+            
+            
+            
+            
+            
+            
+    
+
+        //(playerScore > pcScore) ? console.log("PLAYER WON THE GAME!") : console.log("PLAYER LOST THE GAME!");
+    
+
+    
+
+    
+
+       
+
+        
+
+    </script>
+    
+</body>
+</html>
